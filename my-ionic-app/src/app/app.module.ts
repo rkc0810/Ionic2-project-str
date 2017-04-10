@@ -9,6 +9,9 @@ import { RedditsPage } from '../pages/reddits/reddits';
 import { SettingsPage } from '../pages/settings/settings';
 import { DetailsPage } from '../pages/details/details';
 
+import {HttpModule, Http, XHRBackend, RequestOptions} from '@angular/http';
+import {httpFactory} from "./http.factory";
+
 @NgModule({
   declarations: [
     MyApp,
@@ -35,6 +38,12 @@ import { DetailsPage } from '../pages/details/details';
     SettingsPage,
     DetailsPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [
+                {
+                    provide: Http,
+                    useFactory: httpFactory,
+                    deps: [XHRBackend, RequestOptions]
+                }
+            ]
 })
 export class AppModule {}
